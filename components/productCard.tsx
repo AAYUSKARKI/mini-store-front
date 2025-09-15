@@ -7,7 +7,6 @@ import { Star, ShoppingCart } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Card, CardContent, CardFooter } from "@/components/ui/card"
-import { useCartStore } from "@/store"
 import type { Product } from "@/types"
 
 interface ProductCardProps {
@@ -16,13 +15,11 @@ interface ProductCardProps {
 }
 
 export function ProductCard({ product, onAddToCart }: ProductCardProps) {
-    const { addToCart } = useCartStore()
 
     const handleAddToCart = (e: React.MouseEvent) => {
         e.preventDefault()
         e.stopPropagation()
         onAddToCart?.(product)
-        addToCart(product)
     }
 
     return (
@@ -57,7 +54,7 @@ export function ProductCard({ product, onAddToCart }: ProductCardProps) {
                     </div>
                 </CardContent>
                 <CardFooter className="p-4 pt-0">
-                    <Button onClick={handleAddToCart} className="w-full" size="sm">
+                    <Button onClick={handleAddToCart} className="w-full cursor-pointer" size="sm">
                         <ShoppingCart className="h-4 w-4 mr-2" />
                         Add to Cart
                     </Button>

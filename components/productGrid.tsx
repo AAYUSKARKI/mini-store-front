@@ -28,7 +28,7 @@ export function ProductGrid({ products, loading = false, onAddToCart }: ProductG
         </div>
         <h3 className="text-lg font-semibold mb-2">No products found</h3>
         <p className="text-muted-foreground max-w-md">
-          Try adjusting your search or filter criteria to find what you're looking for.
+          Try adjusting your search or filter criteria to find what you&#39;re looking for.
         </p>
       </div>
     )

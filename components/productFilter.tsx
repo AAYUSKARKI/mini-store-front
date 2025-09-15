@@ -3,7 +3,6 @@ import { useState, useEffect } from "react"
 import { Filter, X } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { useProductStore, useFilterStore } from "@/store"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet"
 import { Separator } from "@/components/ui/separator"
@@ -21,7 +20,6 @@ interface ProductFilterProps {
 export function ProductFilters({ categories, filters, onFilterChange, productCount }: ProductFilterProps) {
     const [isOpen, setIsOpen] = useState(false)
     const [localFilters, setLocalFilters] = useState(filters)
-    const {setCategory, setPriceRange, setSortBy, setSearchQuery, resetFilters} = useFilterStore()
 
     useEffect(() => {
         setLocalFilters(filters)
@@ -70,7 +68,7 @@ export function ProductFilters({ categories, filters, onFilterChange, productCou
     localFilters.priceRange.max > 0 ||
     localFilters.searchQuery.length > 0
 
-  const FilterContent = () => (
+   const FilterContent = () => (
     <div className="space-y-6">
       {/* Sort */}
       <div>
@@ -195,5 +193,3 @@ export function ProductFilters({ categories, filters, onFilterChange, productCou
     </>
   )
 }
-
-
