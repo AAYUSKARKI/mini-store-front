@@ -166,6 +166,7 @@ export function Header({ cartItemCount = 0, onSearch, searchQuery = "" }: Header
                             <SearchInput />
                         </form>
                         <div className="flex items-center justify-between">
+                            <ThemeToggle />
                             <Link href="/cart" onClick={() => setIsMenuOpen(false)}>
                                 <Button variant="ghost" size="sm" className="relative cursor-pointer">
                                     <ShoppingCart className="h-5 w-5 mr-2" />

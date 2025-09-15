@@ -1,8 +1,9 @@
 "use client"
-import { useEffect, useMemo } from "react"
+import { Suspense } from "react"
+import { SearchParamsHandler } from "@/components/searchParamsHandler"
+import { useMemo } from "react"
 import { useProductStore, useCartStore, useCategoryStore, useFilterStore } from "@/store"
 import { Header } from "@/components/header"
-import { useSearchParams } from "next/navigation"
 import { Footer } from "@/components/footer"
 import { ProductFilters } from "@/components/productFilter"
 import { ProductGrid } from "@/components/productGrid"
@@ -13,16 +14,10 @@ export default function Home() {
   const { categories, fetchCategories } = useCategoryStore()
   const { category, priceRange, sortBy, searchQuery } = useFilterStore()
   const { addToCart, quantity } = useCartStore()
-  const searchParams = useSearchParams()
-  useEffect(() => {
+  useMemo(() => {
     fetchProducts()
     fetchCategories()
-
-    const query = searchParams.get("query")
-    if (query) {
-      useFilterStore.setState({ searchQuery: query })
-    }
-  }, [fetchProducts, fetchCategories, searchParams])
+  }, [fetchProducts, fetchCategories])
 
   const filteredProducts = useMemo(() => {
     let filtered = products
@@ -87,6 +82,7 @@ export default function Home() {
     <div className="min-h-screen flex flex-col">
       <Header onSearch={handleSearch} searchQuery={searchQuery} cartItemCount={quantity} />
       <main className="flex-1 container mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
+        <Suspense fallback={<SearchParamsHandler />}></Suspense>
         <div className="flex flex-col lg:flex-row gap-6 lg:gap-8">
           <ProductFilters
             categories={categories}
