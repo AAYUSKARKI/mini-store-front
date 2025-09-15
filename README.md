@@ -12,9 +12,11 @@ A responsive storefront application built for the Hyteno Tech Frontend Internshi
 - **Vercel**
 
 ## Features
-- **Product Listing** — Display a list of products
-- **Product Details** — Display details of a single product
-- **Add to Cart** — Add a product to the cart
+- **Product Listing**: Grid of products with image, title, price, and category.
+- **Filtering & Sorting**: Filter by category and price range; sort by price (low to high, high to low); search by title.
+- **Product Details**: Displays product image, title, price, description, category, and related products.
+- **Cart**: Add/remove items, update quantities, view subtotals, and persist cart to localStorage.
+- **UI**: Responsive layout, dark mode toggle,pagination, toast alerts for cart actions.
 
 ## Installation
 To run the project locally, follow these steps:
@@ -52,5 +54,14 @@ Open [http://localhost:3000](http://localhost:3000) in your browser to view the 
 
 ## Deployment
 The application is deployed on Vercel: [https://mini-store-front.vercel.app](https://mini-store-front.vercel.app).
+
+## Trade-offs & Known Issues
+- **Trade-offs**:
+  - **Performance**: The app is optimized for performance and uses client-side filtering, sorting, and search.
+
+- **Known Issues**:
+  - **Scalability**: Client-side filtering may lag with thousands of products.
+  - **API Error Handling**: Basic error states covered; lacks advanced retry logic.
+
 ## Notes
 - The repository is public as requested: [https://github.com/AAYUSKARKI/mini-store-front](https://github.com/AAYUSKARKI/mini-store-front).
