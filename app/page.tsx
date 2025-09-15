@@ -1,22 +1,28 @@
 "use client"
-import { useState, useEffect, useMemo } from "react"
+import { useEffect, useMemo } from "react"
 import { useProductStore, useCartStore, useCategoryStore, useFilterStore } from "@/store"
 import { Header } from "@/components/header"
+import { useSearchParams } from "next/navigation"
 import { Footer } from "@/components/footer"
 import { ProductFilters } from "@/components/productFilter"
 import { ProductGrid } from "@/components/productGrid"
-import type { Product, FilterState } from "@/types"
+import type { Product } from "@/types"
 import toast from "react-hot-toast"
 export default function Home() {
   const { products, loading, error, fetchProducts } = useProductStore()
   const { categories, fetchCategories } = useCategoryStore()
   const { category, priceRange, sortBy, searchQuery } = useFilterStore()
   const { addToCart, quantity } = useCartStore()
-
+  const searchParams = useSearchParams()
   useEffect(() => {
     fetchProducts()
     fetchCategories()
-  }, [])
+
+    const query = searchParams.get("query")
+    if (query) {
+      useFilterStore.setState({ searchQuery: query })
+    }
+  }, [fetchProducts, fetchCategories, searchParams])
 
   const filteredProducts = useMemo(() => {
     let filtered = products
@@ -80,8 +86,8 @@ export default function Home() {
   return (
     <div className="min-h-screen flex flex-col">
       <Header onSearch={handleSearch} searchQuery={searchQuery} cartItemCount={quantity} />
-      <main className="flex-1 container mx-auto px-4 py-8">
-        <div className="flex gap-8">
+      <main className="flex-1 container mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
+        <div className="flex flex-col lg:flex-row gap-6 lg:gap-8">
           <ProductFilters
             categories={categories}
             filters={{ category, priceRange, sortBy, searchQuery }}
@@ -89,7 +95,7 @@ export default function Home() {
             productCount={filteredProducts.length}
           />
 
-          <div className="flex-1">
+          <div className="flex-1 min-w-0">
             <ProductGrid
               products={filteredProducts}
               loading={loading}
