@@ -15,7 +15,6 @@ interface ProductCardProps {
 }
 
 export function ProductCard({ product, onAddToCart }: ProductCardProps) {
-
     const handleAddToCart = (e: React.MouseEvent) => {
         e.preventDefault()
         e.stopPropagation()
@@ -24,8 +23,8 @@ export function ProductCard({ product, onAddToCart }: ProductCardProps) {
 
     return (
         <Link href={`/product/${product.id}`}>
-            <Card className="group h-full overflow-hidden transition-all duration-200">
-                <CardContent className="p-0">
+            <Card className="group flex h-full flex-col overflow-hidden transition-all duration-200">
+                <CardContent className="p-0 flex-grow">
                     <div className="aspect-square relative overflow-hidden bg-muted">
                         <Image
                             src={product.image || "/placeholder.svg"}
