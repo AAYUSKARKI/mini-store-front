@@ -9,71 +9,53 @@ import { Separator } from "@/components/ui/separator"
 import { Label } from "@/components/ui/label"
 import { Checkbox } from "@/components/ui/checkbox"
 import type { FilterState } from "@/types"
+import { useFilterStore } from "@/store"
 
 interface ProductFilterProps {
     categories: string[]
-    filters: FilterState
-    onFilterChange: (filters: FilterState) => void
     productCount: number
 }
 
-export function ProductFilters({ categories, filters, onFilterChange, productCount }: ProductFilterProps) {
+export function ProductFilters({ categories, productCount }: ProductFilterProps) {
     const [isOpen, setIsOpen] = useState(false)
-    const [localFilters, setLocalFilters] = useState(filters)
+    const { category, priceRange, sortBy, setCategory, setPriceRange, setSortBy, resetFilters, searchQuery } = useFilterStore()
 
-    useEffect(() => {
-        setLocalFilters(filters)
-    }, [filters])
-
-  const handleCategoryChange = (category: string, checked: boolean) => {
+  const handleCategoryChange = (categoryItem: string, checked: boolean) => {
     const newCategories = checked
-      ? [...localFilters.category, category]
-      : localFilters.category.filter((c) => c !== category)
-
-    const newFilters = { ...localFilters, category: newCategories }
-    setLocalFilters(newFilters)
-    onFilterChange(newFilters)
+      ? [...category, categoryItem]
+      : category.filter((c) => c !== categoryItem)
+    setCategory(newCategories)
   }
 
     const handlePriceRangeChange = (field: "min" | "max", value: string) => {
-        const numValue = value === "" ? 0 : Number.parseFloat(value)
-    const newFilters = {
-      ...localFilters,
-      priceRange: { ...localFilters.priceRange, [field]: numValue },
+    const numValue = value === "" ? 0 : parseFloat(value)
+    if (isNaN(numValue)) return 
+    setPriceRange(
+      field === "min" ? numValue : priceRange.min,
+      field === "max" ? numValue : priceRange.max
+    )
     }
-    setLocalFilters(newFilters)
-    onFilterChange(newFilters) 
-    }
-
+    
     const handleSortChange = (value: string) => {
-    const newFilters = { ...localFilters, sortBy: value as FilterState["sortBy"] }
-    setLocalFilters(newFilters)
-    onFilterChange(newFilters)
+    setSortBy(value as FilterState["sortBy"])
   }
 
-  const clearFilters = () => {
-    const clearedFilters: FilterState = {
-      category: [],
-      priceRange: { min: 0, max: 0 },
-      sortBy: "title",
-      searchQuery: "",
-    }
-    setLocalFilters(clearedFilters)
-    onFilterChange(clearedFilters)
+const clearFilters = () => {
+    resetFilters()
   }
 
   const hasActiveFilters =
-    localFilters.category.length > 0 ||
-    localFilters.priceRange.min > 0 ||
-    localFilters.priceRange.max > 0 ||
-    localFilters.searchQuery.length > 0
+    category.length > 0 ||
+    priceRange.min > 0 ||
+    priceRange.max > 0 ||
+    searchQuery.length > 0 
 
    const FilterContent = () => (
     <div className="space-y-6">
       {/* Sort */}
       <div>
         <Label className="text-sm font-medium">Sort By</Label>
-        <Select value={localFilters.sortBy} onValueChange={handleSortChange}>
+        <Select value={sortBy} onValueChange={handleSortChange}>
           <SelectTrigger className="mt-2">
             <SelectValue />
           </SelectTrigger>
@@ -92,15 +74,15 @@ export function ProductFilters({ categories, filters, onFilterChange, productCou
       <div>
         <Label className="text-sm font-medium">Categories</Label>
         <div className="mt-3 space-y-3">
-          {categories.map((category) => (
-            <div key={category} className="flex items-center space-x-2">
+          {categories.map((cat) => (
+            <div key={cat} className="flex items-center space-x-2">
               <Checkbox
-                id={category}
-                checked={localFilters.category.includes(category)}
-                onCheckedChange={(checked) => handleCategoryChange(category, checked as boolean)}
+                id={cat}
+                checked={category.includes(cat)}
+                onCheckedChange={(checked) => handleCategoryChange(cat, checked as boolean)}
               />
-              <Label htmlFor={category} className="text-sm capitalize cursor-pointer">
-                {category.replace(/'/g, "")}
+              <Label htmlFor={cat} className="text-sm capitalize cursor-pointer">
+                {cat.replace(/'/g, "")}
               </Label>
             </div>
           ))}
@@ -121,7 +103,7 @@ export function ProductFilters({ categories, filters, onFilterChange, productCou
               id="min-price"
               type="number"
               placeholder="0"
-              value={localFilters.priceRange.min || ""}
+              value={priceRange.min || ""}
               onChange={(e) => handlePriceRangeChange("min", e.target.value)}
               className="mt-1"
             />
@@ -134,7 +116,7 @@ export function ProductFilters({ categories, filters, onFilterChange, productCou
               id="max-price"
               type="number"
               placeholder="1000"
-              value={localFilters.priceRange.max || ""}
+              value={priceRange.max || ""}
               onChange={(e) => handlePriceRangeChange("max", e.target.value)}
               className="mt-1"
             />

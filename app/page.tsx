@@ -1,6 +1,5 @@
 "use client"
-import { Suspense, useEffect } from "react"
-import { SearchParamsHandler } from "@/components/searchParamsHandler"
+import { useEffect } from "react"
 import { useMemo } from "react"
 import { useProductStore, useCartStore, useCategoryStore, useFilterStore } from "@/store"
 import { Header } from "@/components/header"
@@ -82,12 +81,9 @@ export default function Home() {
     <div className="min-h-screen flex flex-col">
       <Header onSearch={handleSearch} searchQuery={searchQuery} cartItemCount={quantity} />
       <main className="flex-1 container mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
-        <Suspense fallback={<SearchParamsHandler />}></Suspense>
         <div className="flex flex-col lg:flex-row gap-6 lg:gap-8">
           <ProductFilters
             categories={categories}
-            filters={{ category, priceRange, sortBy, searchQuery }}
-            onFilterChange={(filters) => useFilterStore.setState(filters)}
             productCount={filteredProducts.length}
           />
 
