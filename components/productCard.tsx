@@ -24,14 +24,14 @@ export function ProductCard({ product, onAddToCart }: ProductCardProps) {
 
     return (
         <Link href={`/product/${product.id}`}>
-            <Card className="group h-full overflow-hidden transition-all duration-200 hover:shadow-lg hover:scale-[1.02]">
+            <Card className="group h-full overflow-hidden transition-all duration-200">
                 <CardContent className="p-0">
                     <div className="aspect-square relative overflow-hidden bg-muted">
                         <Image
                             src={product.image || "/placeholder.svg"}
                             alt={product.title}
                             fill
-                            className="object-contain p-4 group-hover:scale-105 transition-transform duration-200"
+                            className="object-contain p-4 transition-transform duration-200 hover:shadow-lg hover:scale-108"
                             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                         />
                         <Badge className="absolute top-2 right-2 bg-background/80 text-foreground">{product.category}</Badge>

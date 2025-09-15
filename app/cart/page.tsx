@@ -22,8 +22,7 @@ export default function CartPage() {
   }, [])
 
   const handleUpdateQuantity = (productId: number, newQuantity: number) => {
-    updateQuantity(productId, newQuantity)
-    toast.success("Item quantity has been updated.")  
+    updateQuantity(productId, newQuantity) 
   }
 
   const handleRemoveItem = (productId: number) => {
@@ -38,8 +37,8 @@ export default function CartPage() {
   }
 
   const subtotal = total
-  const tax = subtotal * 0.08 // 8% tax
-  const shipping = subtotal > 50 ? 0 : 9.99 // Free shipping over $50
+  const tax = subtotal * 0.08
+  const shipping = subtotal > 50 ? 0 : 9.99
   const finalTotal = subtotal + tax + shipping
 
   if (loading) {

@@ -50,5 +50,7 @@ Open [http://localhost:3000](http://localhost:3000) in your browser to view the 
 
 - **Responsive Design**: Tailwind CSS ensures the app is mobile-friendly and desktop-optimized.
 
+## Deployment
+The application is deployed on Vercel: [https://mini-store-front.vercel.app](https://mini-store-front.vercel.app).
 ## Notes
 - The repository is public as requested: [https://github.com/AAYUSKARKI/mini-store-front](https://github.com/AAYUSKARKI/mini-store-front).

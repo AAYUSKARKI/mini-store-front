@@ -1,5 +1,5 @@
 "use client"
-import { Suspense } from "react"
+import { Suspense, useEffect } from "react"
 import { SearchParamsHandler } from "@/components/searchParamsHandler"
 import { useMemo } from "react"
 import { useProductStore, useCartStore, useCategoryStore, useFilterStore } from "@/store"
@@ -14,7 +14,7 @@ export default function Home() {
   const { categories, fetchCategories } = useCategoryStore()
   const { category, priceRange, sortBy, searchQuery } = useFilterStore()
   const { addToCart, quantity } = useCartStore()
-  useMemo(() => {
+  useEffect(() => {
     fetchProducts()
     fetchCategories()
   }, [fetchProducts, fetchCategories])

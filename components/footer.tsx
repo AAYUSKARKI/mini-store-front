@@ -26,17 +26,17 @@ export function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/?category=electronics" className="text-muted-foreground hover:text-foreground">
+                <Link href="#" className="text-muted-foreground hover:text-foreground">
                   Electronics
                 </Link>
               </li>
               <li>
-                <Link href="/?category=clothing" className="text-muted-foreground hover:text-foreground">
+                <Link href="#" className="text-muted-foreground hover:text-foreground">
                   Clothing
                 </Link>
               </li>
               <li>
-                <Link href="/?category=jewelry" className="text-muted-foreground hover:text-foreground">
+                <Link href="#" className="text-muted-foreground hover:text-foreground">
                   Jewelry
                 </Link>
               </li>
@@ -92,7 +92,7 @@ export function Footer() {
         </div>
 
         <div className="border-t mt-8 pt-8 text-center text-sm text-muted-foreground">
-          <p>&copy; 2025 Store. All rights reserved.</p>
+          <p>&copy; 2025 Mini Storefront. All rights reserved.</p>
         </div>
       </div>
     </footer>

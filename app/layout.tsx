@@ -16,7 +16,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "mini-store-front",
-  description: "mini-store-front  with filtering, search, and cart functionality",
+  description: "A responsive storefront application built for the Hyteno Tech Frontend Internship second-round task. The application features a product catalog, filtering and sorting capabilities, a product detail page, and a cart with localStorage persistence. It emphasizes clean code, accessibility, and a modern UI.",
 };
 
 export default function RootLayout({
