@@ -57,7 +57,7 @@ The application is deployed on Vercel: [https://mini-store-front.vercel.app](htt
 
 ## Trade-offs & Known Issues
 - **Trade-offs**:
-  - **Performance**: The app is optimized for performance and uses client-side filtering, sorting, and search.
+  - **Client-side Filtering**: Chosen for simplicity and speed with small datasets, but may not scale for thousands of products. Server-side filtering could be added for larger catalogs
 
 - **Known Issues**:
   - **Scalability**: Client-side filtering may lag with thousands of products.
